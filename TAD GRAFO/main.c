@@ -5,34 +5,35 @@
 #define DIGRAFO 1 
 //Define se será digrafo.
 
-int main(void) {
-  //Variáveis para as vertices e o grau.
-  int vertices, grau;
-  
+int main() {
+  //Variáveis para as Vertices e o grauGrafo.
+  int Vertices=0, grauGrafo=0;
+  int x=0;
   //Variável utilizada para operações 
-  int op=6,op2=0;
+  int op=-1,op2=0;
 
   //Variável para definir em qual vertice começará a busca
-  int vertice_inicial;
-  int origem, destino, test;
+  int Vinicial=0;
+  int origemVertice=0, destinoVertice=0, tV=0;
 
   //Variável utilizada para  buscas em profundidade e de largura
-  int visitados[vertices];  
-  int anterior[vertices];
-  float distancia[vertices];
+  int grafosVisitados[Vertices];  
+  int ant[Vertices];
+  float dist[Vertices];
   
-  //Definição de quantas vertices o grafo possuirá
-  printf("Defina a quantidade de vértices o grafo possuirá: \n");
-    scanf("%d", &vertices);
+    //Definição de quantas Vertices o grafo possuirá
+    printf("Digite a quantidade de vértices o grafo possuirá: \n");
+    x=scanf("%d", &Vertices);
   
-    //Definição do grau 
-    printf("Defina a quantidade de graus o grafo possuirá: \n");
-     scanf("%d", &grau);
+    //Definição do grauGrafo 
+    printf("Digite a quantidade de graus o grafo possuirá: \n");
+    x=scanf("%d", &grauGrafo);
+  
   //Alocando um grafo
-  Grafo* gr = cria_grafo (vertices, grau, 0 );
+  Grafo* grafo= criaG (Vertices, grauGrafo, 0 );
 
   //Insere aletóriamente um valor de vértices no grafo
-  insere_aleatorio(gr, grau);
+  insere(grafo, grauGrafo);
 
   //While que chama as funções conforme a opção escolhida.
   while(op!=0){
@@ -45,26 +46,25 @@ int main(void) {
   printf("5. Desalocar gravo.\n");
   printf("0. Sair.\n");
   printf("Digite a opção escolhida: \n");
-  scanf("%d",&op);
+  x=scanf("%d",&op);
     if(op==1){
       //chama função.
-      imprime_grafo(gr);
+      imprimeG(grafo);
     }
     else if(op==2){
-      printf("Determine sua origem: ");
-      scanf("%d", &origem);
-      printf("Determine seu destino: ");
-      scanf("%d", &destino);
-      //chama função.
-      insere_aresta(gr, origem, destino, DIGRAFO, 0);
+      printf("Determine sua origemVertice: ");
+      x=scanf("%d", &origemVertice);
+      printf("Determine seu destinoVertice: ");
+      x=scanf("%d", &destinoVertice);
+      insereA(grafo, origemVertice, destinoVertice, DIGRAFO, 0);
     }
     else if(op==3){
-        printf("Determine sua origem: ");
-        scanf("%d", &origem);
-        printf("Determine seu destino: ");
-        scanf("%d", &destino);
+        printf("Determine sua origemVertice: ");
+        x=scanf("%d", &origemVertice);
+        printf("Determine seu destinoVertice: ");
+        x=scanf("%d", &destinoVertice);
       //chama função.
-        remove_aresta(gr, origem, destino, DIGRAFO);  
+        removeA(grafo, origemVertice, destinoVertice, DIGRAFO);  
     }
     else if (op==4){
       //Menu para escolher a forma de busca desejada
@@ -73,34 +73,32 @@ int main(void) {
       printf("2 - Busca em profundidade\n");
       printf("3 - Busca em largura\n");
       printf("Digite a opção escolhida: \n");
-      scanf("%d",&op2);
+      x=scanf("%d",&op2);
       if(op2==1){
         printf("Procura o menor caminho:\n");
         printf("\nDetermine o vertice inicial: ");
-        scanf("%d", &vertice_inicial);
-        //chama função.
-        menor_caminho_grafo(gr, vertice_inicial, anterior, distancia);    
-        //If/else apenas para deixa indexado o código na hora do print
-        for(int i=0; i<grau; i++)
-            if(anterior[i] < 0)
-            printf("%d: %d -> {%.2f}\n", i, anterior[i], distancia[i]);
+        x=scanf("%d", &Vinicial);
+        mCaminho(grafo,Vinicial,ant,dist);   
+        int i=0;
+        for(i=0; i<grauGrafo; i++)
+            if(ant[i] < 0)
+            printf("%d: %d -> {%.2f}\n", i, ant[i], dist[i]);
             else
-            printf("%d:  %d -> {%.2f}\n", i, anterior[i], distancia[i]);
+            printf("%d:  %d -> {%.2f}\n", i, ant[i], dist[i]);
       }
       else if(op2==2){
         printf("Busca em profundidade:\n");
         printf("\nDetermine o vertice inicial: ");
-        scanf("%d", &vertice_inicial);
+        x=scanf("%d", &Vinicial);
         //chama função.
-        busca_profundidade_grafo(gr, vertice_inicial, visitados);
+        profundidadeG(grafo, Vinicial, grafosVisitados);
         
       }
       else if(op2==3){
         printf("Busca em profundidade:\n");
-        printf("\nDetermine o vertice inicial: ");
-        scanf("%d", &vertice_inicial);
-        //chama função.
-        busca_largura_grafo(gr, vertice_inicial, visitados);
+        printf("Determine o vertice inicial: \n");
+        x=scanf("%d", &Vinicial);
+        larguraG(grafo, Vinicial, grafosVisitados);
       }
       else{
         printf("Opção inválida!\n");
@@ -108,8 +106,11 @@ int main(void) {
     }
     else if(op==5){
       printf("Desalocando o grafo.\n");
-      libera_grafo(gr);
+      desalocaG(grafo);
     }
+      else if(op==0){
+        
+      }
     else{
       printf("Opção inválida!\n");
     }

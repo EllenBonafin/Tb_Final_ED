@@ -1,19 +1,27 @@
-//Declaração da minha estrutura Grafo
+/*Função usada pra criar o grafo*/
 typedef struct grafo Grafo;
 
-//Definição do Grafo
-Grafo* cria_grafo(int num_vertices, int grau_max, int ponderado);
-void libera_grafo(Grafo* gr);
-int insere_aresta(Grafo* gr, int origem, int destino, int digrafo, float peso);
-int remove_aresta(Grafo* gr, int origem, int destino, int digrafo);
-void imprime_grafo(Grafo *gr);
+/*Função que inicializa o grafo*/
+Grafo* criaG(int nVertices, int MaxGrau, int pond);
 
-//Buscas do grafo
-void busca_profundidade(Grafo *gr, int inicial, int *visitado, int cont);
-void busca_profundidade_grafo(Grafo *gr, int inicial, int *visitado);
-void busca_largura_grafo(Grafo *gr, int inicial, int *visitado);
-int procura_menor_distancia(float *distancia, int *visitado, int NV);
-void menor_caminho_grafo(Grafo *gr, int inicial, int *anterior, float *distancia);
+/*Função que desaloca o grafo*/
+void desalocaG(Grafo* grafo);
 
-//Inserção no gravo
-void insere_aleatorio(Grafo* gr, int GRAU);
+/*Função que realiza a inserção aleatóriamente*/
+int insereA(Grafo* grafo, int origem, int destino, int digrafo, float peso);
+
+/*Função de remoção*/
+int removeA(Grafo* grafo, int origem, int destino, int digrafo);
+
+/*Função de impressão*/
+void imprimeG(Grafo *grafo);
+
+/*Funções de busca do grafo*/
+void profundidade(Grafo *grafo, int inicial, int *visitado, int cont);
+void profundidadeG(Grafo *grafo, int inicial, int *visitado);
+void larguraG(Grafo *grafo, int inicial, int *visitado);
+int menorDistancia(float *distancia, int *visitado, int n);
+void mCaminho(Grafo *grafo, int inicial, int *anterior, float *distancia);
+
+//Insere valores aleatórios
+void insere(Grafo* grafo, int GRAU);
